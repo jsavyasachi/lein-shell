@@ -1,7 +1,5 @@
 (ns leiningen.shell
-  (:require [clojure.java.io :as io]
-            [clojure.string :as s]
-            [leiningen.core.eval :as eval]
+  (:require [leiningen.core.eval :as eval]
             [leiningen.core.main :as main]
             [leiningen.core.utils :as utils]))
 
