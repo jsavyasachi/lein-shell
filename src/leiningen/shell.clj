@@ -139,7 +139,7 @@
   version if there is one."
   [project cmd]
   (let [command (first cmd)
-        os (eval/get-os)]
+        os (utils/get-os)]
     (if-let [os-cmd (or (get-in project [:shell :commands command os])
                         (get-in project [:shell :commands command :default-command]))]
       (let [normalized-cmd (if (string? os-cmd) [os-cmd] os-cmd)]
