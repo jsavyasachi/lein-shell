@@ -1,5 +1,9 @@
 # lein-shell changelog
 
+## 1.0.0 (unreleased)
+
+* Migrated to `utils/get-os`, resolving the deprecation warning under Leiningen 2.12.
+
 ## 0.5.0 [`tag`][0.5.0-tag]
 
 * Fixed a bug where non-string were not converted to strings before sent to the
