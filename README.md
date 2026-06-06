@@ -1,22 +1,25 @@
 # lein-shell
 
+[![Clojars Project](https://img.shields.io/clojars/v/net.clojars.savya/lein-shell.svg)](https://clojars.org/net.clojars.savya/lein-shell)
+[![ci](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml)
+
 A Leiningen plugin for calling shell commands. lein-shell is an active, stable
 project.
 
 ## Installation
 
-Put `[lein-shell "0.5.0"]` into the `:plugins` vector of your `:user` profile
+Put `[net.clojars.savya/lein-shell "1.0.0"]` into the `:plugins` vector of your `:user` profile
 inside `~/.lein/profiles.clj` if you want to use lein shell on a per user basis
 (this doesn't *really* make much sense, but you're allowed to if you want to!).
 
 To explicitly say that this project needs lein-shell to be built, put
-`[lein-shell "0.5.0"]` into the `:plugins` vector of your `project.clj`. If you
+`[net.clojars.savya/lein-shell "1.0.0"]` into the `:plugins` vector of your `project.clj`. If you
 have no `:plugins` vector in your `project.clj`, it should look like this:
 
 ```clj
 (defproject your-project-here "version"
  ...
- :plugins [[lein-shell "0.5.0"]]
+ :plugins [[net.clojars.savya/lein-shell "1.0.0"]]
  ...)
 ```
 
@@ -56,11 +59,14 @@ desired, and many other settings can be modified as well.
 For more information, have a look at [the documentation][documentation]. It
 contains a lot of examples, some which hopefully are useful to you.
 
-[documentation]: https://github.com/hyPiRion/lein-shell/blob/stable/doc/DOCUMENTATION.md
+[documentation]: https://github.com/jsavyasachi/lein-shell/blob/main/doc/DOCUMENTATION.md
 
 ## License
 
 Copyright © 2013-2015 Jean Niklas L'orange and [contributors][].
+
+Maintenance fork (2026) by Savyasachi, preserving the original Eclipse Public
+License.  Original project: https://github.com/hyPiRion/lein-shell
 
 [contributors]: https://github.com/hyPiRion/lein-shell/contributors
 
