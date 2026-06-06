@@ -1,7 +1,6 @@
-(defproject lein-shell "1.0.0-SNAPSHOT"
+(defproject net.clojars.savya/lein-shell "1.0.0"
   :description "Call shell from within Leiningen."
-  :url "http://www.github.com/hyPiRion/lein-shell"
+  :url "https://github.com/jsavyasachi/lein-shell"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :deploy-branches ["stable"]
   :eval-in-leiningen true)
