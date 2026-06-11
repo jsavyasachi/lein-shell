@@ -1,7 +1,14 @@
 # lein-shell changelog
 
-## 1.0.0 (unreleased)
+## 1.0.1
 
+* Declared `leiningen-core` as a provided dependency so cljdoc can resolve the
+  `leiningen.core.*` requires and build the API docs. Provided scope is
+  non-transitive, so projects depending on lein-shell are unaffected.
+
+## 1.0.0
+
+* Self-published as `net.clojars.savya/lein-shell` (maintenance fork).
 * Migrated to `utils/get-os`, resolving the deprecation warning under Leiningen 2.12.
 
 ## 0.5.0 [`tag`][0.5.0-tag]
