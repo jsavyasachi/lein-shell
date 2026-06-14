@@ -6,6 +6,11 @@
 
 A Leiningen plugin for calling shell commands.
 
+## Stack
+
+<a href="https://clojure.org"><img src="https://img.shields.io/badge/Clojure-5881D8?style=flat&logo=clojure&logoColor=fff" alt="Clojure" /></a>
+<a href="https://leiningen.org"><img src="https://img.shields.io/badge/Leiningen-2D2D2D?style=flat" alt="Leiningen" /></a>
+
 ## Installation
 
 Put `[net.clojars.savya/lein-shell "1.0.1"]` into the `:plugins` vector of your `:user` profile
@@ -23,7 +28,7 @@ have no `:plugins` vector in your `project.clj`, it should look like this:
  ...)
 ```
 
-## Quickstart
+## Usage
 
 It is very straightforward to use lein-shell: lein-shell will call the shell
 command with eventual parameters you include. For instance, if you want your
