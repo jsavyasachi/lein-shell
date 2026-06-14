@@ -13,18 +13,18 @@ A Leiningen plugin for calling shell commands.
 
 ## Installation
 
-Put `[net.clojars.savya/lein-shell "1.0.1"]` into the `:plugins` vector of your `:user` profile
+Put `[net.clojars.savya/lein-shell "1.0.2"]` into the `:plugins` vector of your `:user` profile
 inside `~/.lein/profiles.clj` if you want to use lein shell on a per user basis
 (this doesn't *really* make much sense, but you're allowed to if you want to!).
 
 To explicitly say that this project needs lein-shell to be built, put
-`[net.clojars.savya/lein-shell "1.0.1"]` into the `:plugins` vector of your `project.clj`. If you
+`[net.clojars.savya/lein-shell "1.0.2"]` into the `:plugins` vector of your `project.clj`. If you
 have no `:plugins` vector in your `project.clj`, it should look like this:
 
 ```clj
 (defproject your-project-here "version"
  ...
- :plugins [[net.clojars.savya/lein-shell "1.0.1"]]
+ :plugins [[net.clojars.savya/lein-shell "1.0.2"]]
  ...)
 ```
 
