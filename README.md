@@ -2,7 +2,7 @@
 
 [![Clojars Project](https://img.shields.io/clojars/v/net.clojars.savya/lein-shell.svg)](https://clojars.org/net.clojars.savya/lein-shell)
 [![cljdoc](https://cljdoc.org/badge/net.clojars.savya/lein-shell)](https://cljdoc.org/d/net.clojars.savya/lein-shell/CURRENT)
-[![ci](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml)
+[![test](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml/badge.svg)](https://github.com/jsavyasachi/lein-shell/actions/workflows/ci.yml)
 
 A Leiningen plugin for calling shell commands. lein-shell is an active, stable
 project.
