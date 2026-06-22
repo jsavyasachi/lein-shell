@@ -1,5 +1,10 @@
 # lein-shell changelog
 
+## 1.0.2
+
+* Docs-only release: standardize the README to the canonical skeleton, cut
+  self-promotional phrasing, and unify the status badges and CI workflow name.
+
 ## 1.0.1
 
 * Declared `leiningen-core` as a provided dependency so cljdoc can resolve the
