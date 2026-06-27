@@ -70,8 +70,8 @@ contains a lot of examples, some which hopefully are useful to you.
 
 Copyright © 2013-2015 Jean Niklas L'orange and [contributors][].
 
-Maintenance fork (2026) by Savyasachi, preserving the original Eclipse Public
-License.  Original project: https://github.com/hyPiRion/lein-shell
+Maintenance fork (2026) by Savyasachi, original: https://github.com/hyPiRion/lein-shell.
+Distributed under the [Eclipse Public License 1.0](https://www.eclipse.org/legal/epl-v10.html), preserving the original license.
 
 [contributors]: https://github.com/hyPiRion/lein-shell/contributors
 
