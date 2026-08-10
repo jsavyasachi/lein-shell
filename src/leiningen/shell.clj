@@ -9,9 +9,8 @@
 (declare read-expansion)
 
 (defn- read-default
-  "read-default works like replace-values, except that it will stop
-  reading when it finds a }. It returns a tuple [val end-pos], where
-  val is a string of what was read."
+  "read-default works like replace-values, but it stops when it finds a }.
+  It returns [val end-pos], where val is the string read."
   [project ^String s orig-start start]
   (let [sb (StringBuilder.)]
     (loop [i start
@@ -33,8 +32,8 @@
                   (recur (inc i) false)))))))))
 
 (defn- lookup-vector
-  "Given a string and a start/stop position, returns the Clojure value it
-  represents. If the value is not a vector, it is wrapped in one."
+  "Given a string and start and stop positions, returns its Clojure value.
+  If the value is not a vector, it wraps the value in one."
   [^String s start end]
   (let [lookup-str (subs s start end)
         lookup-val (read-string lookup-str)]
@@ -43,10 +42,9 @@
       lookup-val)))
 
 (defn- read-expansion
-  "read-expansion reads a parameter expansion. It does not perform any kind of
-  quoting, and Clojure values that contain :- or } will error out the expansion
-  mechanism. For information on how the parameter expansion works, look at
-  replace-values."
+  "read-expansion reads a parameter expansion. It does not quote values.
+  Clojure values that contain :- or } cause an error in the expansion mechanism.
+  See replace-values for information about parameter expansion."
   [project ^String s start]
   (if (not= (.charAt s start) \{)
     (failf "Expected { after $ at position %d in argument '%s', but was %c"
@@ -58,28 +56,25 @@
                s (dec start))
         (let [c (.charAt s i)]
           (cond (and colon (= c \-))
-                ;; ":-" -> we're done then. No smart syntactic trick here, so if you
-                ;; have a Clojure value that contains :- then you have a problem.
+                ;; ":-" ends the lookup value. A Clojure value with :- causes an error.
                 (let [lookup-vec (lookup-vector s (inc start) (dec i))
                       [default end-pos] (read-default project s start (inc i))]
                   [(get-in project lookup-vec default) end-pos])
-                (= c \}) ;; no support for values containing } either
+                (= c \}) ;; Values that contain } are not supported.
                 (let [lookup-vec (lookup-vector s (inc start) i)]
                   [(get-in project lookup-vec) i])
                 :otherwise
                 (recur (inc i) (= c \:))))))))
 
 (defn- replace-values
-  "replace-values takes a project and a string s. Parameter expansion is applied
-  to forms in the shape ${xxx}, where xxx is a clojure value or a vector of
-  clojure values. If the shape looks like ${xxx:-yyy}, then the string yyy will
-  be the default value if xxx does not exist in the project map. yyy will be
-  expanded recursively, i.e. the form ${xxx:-${xxx2:-yyy}} is legal, and will
-  look for xxx, then xxx2 if not found, then yyy if not found, in that order.
+  "replace-values takes a project and a string s. It applies parameter expansion
+  to forms with the shape ${xxx}. xxx is a Clojure value or a vector of Clojure
+  values. In ${xxx:-yyy}, yyy is the default value when xxx is absent from the
+  project map. yyy expands recursively. The legal form ${xxx:-${xxx2:-yyy}}
+  looks for xxx, then xxx2, then yyy.
 
-  replace-values will also unquote backslashed values. \"\\${:foo}\"
-  will be translated to the string \"${:foo}\", and \"\\\\${:foo}\"
-  will be translated to \"\\[expansion]\".
+  replace-values also unquotes backslashed values. \"\\${:foo}\" becomes
+  the string \"${:foo}\", and \"\\\\${:foo}\" becomes \"\\[expansion]\".
 
   The form ${} is illegal."
   [project ^String s]
@@ -107,9 +102,9 @@
     (replace-values project s)))
 
 (defmacro ^:private get-setting-fn
-  "Returns a function which returns the highest priority setting when called
-  with a project and a command. It is a macro because dynamic variables will get
-  caught and dereferenced if this was a function. Will return falsey values."
+  "Returns a function that returns the highest-priority setting for a project
+  and command. This is a macro because a function captures and dereferences
+  dynamic variables. It returns falsey values."
   ([kw] `(get-setting-fn ~kw nil))
   ([kw default]
      `(let [gsym# (gensym "not-found")]
@@ -133,8 +128,8 @@
   (get-setting-fn :pipe-stdin? true))
 
 (defn- lookup-command
-  "Looks up the first part of command, and replaces it with an os-specific
-  version if there is one."
+  "Looks up the first part of a command and replaces it with an OS-specific
+  version when one exists."
   [project cmd]
   (let [command (first cmd)
         os (utils/get-os)]
@@ -155,10 +150,9 @@
       (apply eval/sh cmd))))
 
 (defn ^:no-project-needed shell
-  "For shelling out from Leiningen. Useful for adding stuff to prep-tasks like
-`make` or similar commands, which currently has no Leiningen plugin. If the
-process returns a nonzero exit code, this command will force Leiningen to exit
-with the same exit code.
+  "Calls a shell command from Leiningen. Use it to add `make` or similar commands
+to prep-tasks when no Leiningen plugin exists. If the process returns a nonzero
+exit code, this command forces Leiningen to exit with the same exit code.
 
 Call through `lein shell cmd arg1 arg2 ... arg_n`."
   [project & cmd]

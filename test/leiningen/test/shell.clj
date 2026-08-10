@@ -36,10 +36,10 @@
 
 (deftest test-param-expand
   (let [p {:foo "banana"}]
-    (testing "strings are run through parameter expansion"
+    (testing "strings use parameter expansion"
       (is (= (param-expand p "${:foo}") "banana"))
       (is (= (param-expand p "plain") "plain")))
-    (testing "non-strings are stringified, not expanded"
+    (testing "non-strings become strings without expansion"
       (is (= (param-expand p 42) "42"))
       (is (= (param-expand p :kw) ":kw"))
       (is (= (param-expand p [1 2]) "[1 2]"))
@@ -52,31 +52,31 @@
                               "fallback"   {:default-command "catch-all"}
                               "prefer-os"  {os "os-cmd"
                                             :default-command "default-cmd"}}}}]
-    (testing "string replacement is normalized to a vector and prepended to args"
+    (testing "a string replacement becomes a vector before the args"
       (is (= (lookup-command p ["as-string" "arg1" "arg2"])
              '("winner" "arg1" "arg2"))))
-    (testing "vector replacement is spliced ahead of the original args"
+    (testing "a vector replacement comes before the original args"
       (is (= (lookup-command p ["as-vector" "arg"])
              '("a" "b" "arg"))))
-    (testing ":default-command is used when there is no os-specific match"
+    (testing ":default-command is used when no OS-specific match exists"
       (is (= (lookup-command p ["fallback" "arg"])
              '("catch-all" "arg"))))
-    (testing "an os-specific command takes priority over :default-command"
+    (testing "an OS-specific command has priority over :default-command"
       (is (= (lookup-command p ["prefer-os" "arg"])
              '("os-cmd" "arg"))))
-    (testing "unknown commands pass through untouched"
+    (testing "unknown commands pass through without a change"
       (is (= (lookup-command p ["unknown" "arg"])
              ["unknown" "arg"])))))
 
 (deftest test-get-setting-priority
-  (testing "exit-code: command-level > global > built-in default"
+  (testing "exit-code: command level > global > built-in default"
     (is (= (get-exit-code {} ["cmd"]) :default))
     (is (= (get-exit-code {:shell {:exit-code :ignore}} ["cmd"]) :ignore))
     (is (= (get-exit-code {:shell {:exit-code :ignore
                                    :commands {"cmd" {:exit-code :default}}}}
                           ["cmd"])
            :default)))
-  (testing "pipe-stdin?: built-in default true, falsey overrides are honored"
+  (testing "pipe-stdin?: built-in default true, falsey overrides apply"
     (is (= (get-pipe-stdin? {} ["cmd"]) true))
     (is (= (get-pipe-stdin? {:shell {:pipe-stdin? false}} ["cmd"]) false))
     (is (= (get-pipe-stdin? {:shell {:pipe-stdin? false
@@ -85,7 +85,7 @@
            true))))
 
 (deftest test-exit-code-dispatch
-  (testing ":default action exits with the process' nonzero exit code"
+  (testing ":default action exits with the process nonzero exit code"
     (let [exited (atom :untouched)]
       (with-redefs [eval/sh   (fn [& _] 3)
                     main/exit (fn [code] (reset! exited code))]
@@ -97,7 +97,7 @@
                     main/exit (fn [code] (reset! exited code))]
         (shell/shell {} "true")
         (is (= @exited :untouched)))))
-  (testing ":ignore action never exits, even on a nonzero exit code"
+  (testing ":ignore action does not exit on a nonzero exit code"
     (let [exited (atom :untouched)]
       (with-redefs [eval/sh   (fn [& _] 5)
                     main/exit (fn [code] (reset! exited code))]
