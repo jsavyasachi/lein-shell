@@ -1,46 +1,46 @@
 # lein-shell changelog
 
-## 1.0.2
+## [1.0.2]
 
 * Docs-only release: standardize the README to the canonical skeleton, cut
   self-promotional phrasing, and unify the status badges and CI workflow name.
 
-## 1.0.1
+## [1.0.1]
 
 * Declared `leiningen-core` as a provided dependency so cljdoc can resolve the
   `leiningen.core.*` requires and build the API docs. Provided scope is
   non-transitive, so projects depending on lein-shell are unaffected.
 
-## 1.0.0
+## [1.0.0]
 
 * Self-published as `net.clojars.savya/lein-shell` (maintenance fork).
 * Migrated to `utils/get-os`, resolving the deprecation warning under Leiningen 2.12.
 
-## 0.5.0 [`tag`][0.5.0-tag]
+## [0.5.0]
 
 * Fixed a bug where non-string were not converted to strings before sent to the
   command, causing NullPointerExceptions, cast errors and other problems.
 * Implemented parameter expansion. You can specify them on the form `${:foo}`
   and on the form `${[:foo :bar]}`. They can also contain default strings.
 
-## 0.4.2 [`tag`][0.4.2-tag]
+## [0.4.2]
 
 * Fixed a bug where lein-shell itself could not be used as a higher order alias
   in certain scenarios.
 
-## 0.4.1 [`tag`][0.4.1-tag]
+## [0.4.1]
 
 * Custom `:shell :commands` can now be vectors instead of strings only, acting
   more or less like Lein aliases.
 
-## 0.4.0 [`tag`][0.4.0-tag]
+## [0.4.0]
 
 * By default, stdin is piped in to shell commands. You can now specify that
   lein-shell doesn't pipe stdin to the shell command.
 * A `:default-command` option can be specified as a catch-all for os-specific
   commands, which can be used to create aliases.
 
-## 0.3.0 [`tag`][0.3.0-tag]
+## [0.3.0]
 
 * Exit-code handling, directory specification and environment settings can now
   be set on a per-command basis.
@@ -48,7 +48,7 @@
 * Fixed a bug where reading from Stdin resulted in only partial input
   redirection.
 
-## 0.2.0 [`tag`][0.2.0-tag]
+## [0.2.0]
 
 * Fixed a bug where the exit-code of a process was ignored.
 * It is now possible to specify a directory in which to start commands. This is
@@ -57,7 +57,7 @@
 * Implemented functionality to specify aliases for commands based on which
   operative system you are using.
 
-## 0.1.0 [`tag`][0.1.0-tag]
+## [0.1.0]
 
 * First release!
 
