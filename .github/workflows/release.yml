@@ -69,9 +69,9 @@ jobs:
             $0 ~ "^## " v "$" {found=1; next}
             found && /^## / {exit}
             found {print}
-          ' CHANGES.md > release-notes.md
+          ' CHANGELOG.md > release-notes.md
           if [ ! -s release-notes.md ]; then
-            echo "::error::CHANGES.md has no section for $VERSION"
+            echo "::error::CHANGELOG.md has no section for $VERSION"
             exit 1
           fi
           cat release-notes.md
