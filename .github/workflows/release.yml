@@ -1,10 +1,10 @@
 name: release
 
-# Publishes to Clojars when a v* tag is pushed. The tag is the deliberate
+# Publishes to Clojars when a version tag is pushed. The tag is the deliberate
 # "this is worth a release" signal; nothing publishes on ordinary commits.
 on:
   push:
-    tags: ['v*']
+    tags: ['v*', '[0-9]*']
   workflow_dispatch: {}   # manual run for testing (skips the tag-version guard)
 
 permissions:
