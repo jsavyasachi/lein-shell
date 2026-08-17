@@ -6,6 +6,19 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up clj-kondo
+        uses: DeLaGuardo/setup-clojure@13.6.1
+        with:
+          clj-kondo: '2026.05.25'
+
+      - name: Run clj-kondo
+        run: clj-kondo --lint src test
+
   test:
     name: JDK ${{ matrix.jdk }} / Leiningen ${{ matrix.lein }}
     runs-on: ubuntu-latest

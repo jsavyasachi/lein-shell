@@ -1,0 +1,10 @@
+{:config-in-ns
+ {leiningen.shell
+  {:linters
+   {;; `shell` only handles the validated :ignore and :default actions.
+    :missing-else-branch {:level :off}}}
+
+  leiningen.test.shell
+  {:linters
+   {;; The legacy `:use` test namespace form remains to avoid changing test code.
+    :use {:level :off}}}}}
