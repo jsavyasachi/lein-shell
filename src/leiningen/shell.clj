@@ -63,7 +63,7 @@
                 (= c \}) ;; Values that contain } are not supported.
                 (let [lookup-vec (lookup-vector s (inc start) i)]
                   [(get-in project lookup-vec) i])
-                :otherwise
+                :else
                 (recur (inc i) (= c \:))))))))
 
 (defn- replace-values
