@@ -127,6 +127,15 @@
 (def ^:private get-pipe-stdin?
   (get-setting-fn :pipe-stdin? true))
 
+;; `:use-stdin?` is the documented key; `:pipe-stdin?` is honored as a
+;; backward-compatible alias. Default is true: lein-shell sends stdin to the
+;; first command that can receive it unless a command opts out.
+(def ^:private get-use-stdin?
+  (let [use-stdin (get-setting-fn :use-stdin? ::unset)]
+    (fn [project cmd]
+      (let [v (use-stdin project cmd)]
+        (if (= v ::unset) (get-pipe-stdin? project cmd) v)))))
+
 (defn- lookup-command
   "Looks up the first part of a command and replaces it with an OS-specific
   version when one exists."
@@ -144,7 +153,7 @@
 (defn- shell-with-project [project cmd]
   (binding [eval/*dir* (get-directory project cmd)
             eval/*env* (get-environment project cmd)
-            eval/*pump-in* (get-pipe-stdin? project cmd)]
+            eval/*pump-in* (get-use-stdin? project cmd)]
     (let [cmd (lookup-command project cmd)]
       (main/debug "[shell] Calling the shell with" cmd)
       (apply eval/sh cmd))))

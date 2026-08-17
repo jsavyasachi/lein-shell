@@ -103,3 +103,15 @@
                     main/exit (fn [code] (reset! exited code))]
         (shell/shell {:shell {:exit-code :ignore}} "false")
         (is (= @exited :untouched))))))
+
+(deftest test-use-stdin-launch-configuration
+  (doseq [[project expected] [[{:shell {:use-stdin? true}} true]
+                             [{:shell {:use-stdin? false}} false]
+                             [{:shell {:pipe-stdin? false}} false]
+                             [{} true]]]
+    (let [pump-in (atom :not-launched)]
+      (with-redefs [eval/sh (fn [& _]
+                              (reset! pump-in eval/*pump-in*)
+                              0)]
+        (shell/shell project "command")
+        (is (= expected @pump-in))))))
