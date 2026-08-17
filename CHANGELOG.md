@@ -1,5 +1,14 @@
 # lein-shell changelog
 
+## [1.0.3] - 2026-08-17
+
+### Fixed
+
+- The documented `:use-stdin?` key now controls whether the spawned process
+  inherits stdin; it previously did nothing (`*pump-in*` read the undocumented
+  `:pipe-stdin?` instead). It defaults to true, with `:pipe-stdin?` honored as a
+  backward-compatible alias.
+
 ## [1.0.2]
 
 * Docs-only release: standardize the README to the canonical skeleton, cut
